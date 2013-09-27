@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>NOHTML</title>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../stylesheets/bootstrap.css" />
+	<script src="../javascripts/NOHTML.js"></script>
+	<script>
+		$(document).ready(function(){
+			var _ = NOHTML; //use whatever prefix you'd like
+			_.start("My First Program!"); //name of your program, reset script onclick
+			_.print("Program to output your name and age, and check if you are over 18.");
+			_.input("Please enter your name.", 'name');
+			_.input("Please enter your age.", 'age');
+			_.button('mybutton', 'Compute', function(){
+			    if(_.intval('age') >= 18){
+			        _.printout(_.val('name')+" is over 18.");
+			    }else{
+			        _.printout(_.val('name')+" is under 18!");
+			    }
+			});
+		});
+	</script>
+</head>
+<body>
+	<br /><br />
+	<pre>
+		$(document).ready(function(){
+			var _ = NOHTML; //use whatever prefix you'd like
+			_.start("My First Program!"); //name of your program, reset script onclick
+			_.print("Program to output your name and age, and check if you are over 18.");
+			_.input("Please enter your name.", 'name');
+			_.input("Please enter your age.", 'age');
+			_.button('mybutton', 'Compute', function(){
+			    if(_.val('age') >= 18)
+			        _.printout(_.val('name')+" is over 18.");
+			    else
+			        _.printout(_.val('name')+" is under 18!");
+			});
+		});
+	</pre>
+</body>
+</html>
