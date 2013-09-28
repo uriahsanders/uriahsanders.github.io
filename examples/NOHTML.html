@@ -20,20 +20,19 @@
 			_.input('d', 'Displacement');
 			_.input('t', 'Time');
 			_.button('mybutton', 'Solve', function(){
+				var answer;
 				switch(_.val('choice')){
 					case 'Displacement':
-						var answer = .5*(_.floatval('vi') + _.floatval('vf'))*_.floatval('t');
+						answer = .5*(_.floatval('vi') + _.floatval('vf'))*_.floatval('t');
 						break;
 					case 'Initial velocity':
-						//(d/.5)/t - vi
-						var answer = (_.floatval('d')/.5)/_.floatval('t') - _.floatval('vf');
+						answer = (_.floatval('d')/.5)/_.floatval('t') - _.floatval('vf');
 						break;
 					case 'Final velocity':
-						var answer = (_.floatval('d')/.5)/_.floatval('t') - _.floatval('vi');
+						answer = (_.floatval('d')/.5)/_.floatval('t') - _.floatval('vi');
 						break;
 					case 'Time':
-						//d/(.5(vi+vf))
-						var answer = _.floatval('d')/(.5*(_.floatval('vi') + _.floatval('vf')));
+						answer = _.floatval('d')/(.5*(_.floatval('vi') + _.floatval('vf')));
 						break;
 				}
 				_.printout("Answer: "+_.val('choice')+' = '+answer);
@@ -56,20 +55,19 @@
 		_.input('d', 'Displacement');
 		_.input('t', 'Time');
 		_.button('mybutton', 'Solve', function(){
+			var answer;
 			switch(_.val('choice')){
 				case 'Displacement':
-					var answer = .5*(_.floatval('vi') + _.floatval('vf'))*_.floatval('t');
+					answer = .5*(_.floatval('vi') + _.floatval('vf'))*_.floatval('t');
 					break;
 				case 'Initial velocity':
-					//(d/.5)/t - vi
-					var answer = (_.floatval('d')/.5)/_.floatval('t') - _.floatval('vf');
+					answer = (_.floatval('d')/.5)/_.floatval('t') - _.floatval('vf');
 					break;
 				case 'Final velocity':
-					var answer = (_.floatval('d')/.5)/_.floatval('t') - _.floatval('vi');
+					answer = (_.floatval('d')/.5)/_.floatval('t') - _.floatval('vi');
 					break;
 				case 'Time':
-					//d/(.5(vi+vf))
-					var answer = _.floatval('d')/(.5*(_.floatval('vi') + _.floatval('vf')));
+					answer = _.floatval('d')/(.5*(_.floatval('vi') + _.floatval('vf')));
 					break;
 			}
 			_.printout("Answer: "+_.val('choice')+' = '+answer);
