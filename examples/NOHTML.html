@@ -22,18 +22,18 @@
 			_.button('mybutton', 'Solve', function(){
 				switch(_.val('choice')){
 					case 'Displacement':
-						var answer = .5*(_.floatval('vi') + _.floatval('vf'))*_.floatval('t');
+						var answer = .5*(_.intval('vi') + _.intval('vf'))*_.intval('t');
 						break;
 					case 'Initial velocity':
 						//(d/.5)/t - vi
-						var answer = (_.floatval('d')/.5)/_.floatval('t') - _.floatval('vi');
+						var answer = (_.intval('d')/.5)/_.intval('t') - _.intval('vf');
 						break;
 					case 'Final velocity':
-						var answer = (_.floatval('d')/.5)/_.floatval('t') - _.floatval('vf');
+						var answer = (_.intval('d')/.5)/_.intval('t') - _.intval('vi');
 						break;
 					case 'Time':
 						//d/(.5(vi+vf))
-						var answer = _.floatval('d')/(.5(_.floatval('vi') + _.floatval('vf')));
+						var answer = _.intval('d')/(.5*(_.intval('vi') + _.intval('vf')));
 						break;
 				}
 				_.printout("Answer: "+_.val('choice')+' = '+answer);
@@ -62,14 +62,14 @@
 					break;
 				case 'Initial velocity':
 					//(d/.5)/t - vi
-					var answer = (_.floatval('d')/.5)/_.floatval('t') - _.floatval('vi');
+					var answer = (_.floatval('d')/.5)/_.floatval('t') - _.floatval('vf');
 					break;
 				case 'Final velocity':
-					var answer = (_.floatval('d')/.5)/_.floatval('t') - _.floatval('vf');
+					var answer = (_.floatval('d')/.5)/_.floatval('t') - _.floatval('vi');
 					break;
 				case 'Time':
 					//d/(.5(vi+vf))
-					var answer = _.floatval('d')/(.5(_.floatval('vi') + _.floatval('vf')));
+					var answer = _.floatval('d')/(.5*(_.floatval('vi') + _.floatval('vf')));
 					break;
 			}
 			_.printout("Answer: "+_.val('choice')+' = '+answer);
