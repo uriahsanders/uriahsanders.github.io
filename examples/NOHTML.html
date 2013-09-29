@@ -11,7 +11,7 @@
 			_.start("Physics program"); //name of your program, reset script onclick
 			_.print("What would you like to solve for?");
 			_.print("(You must know at least 3 values)");
-			_.select('choice', function(){
+			_.select('choice', 'std', function(){
 				_.change('equation1', equation+'; Find: '+_.val('choice'));
 			}, 'Initial velocity', 'Final velocity', 'Displacement', 'Time');
 			_.print(equation, 'equation1');
@@ -37,6 +37,7 @@
 				}
 				_.printout("Answer: "+_.val('choice')+' = '+answer);
 			});
+			_.end();
 	</script>
 </head>
 <body>
@@ -72,6 +73,7 @@
 			}
 			_.printout("Answer: "+_.val('choice')+' = '+answer);
 		});
+		_.end();
 	</pre>
 </body>
 </html>
