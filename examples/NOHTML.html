@@ -5,10 +5,12 @@
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="../stylesheets/bootstrap.css" />
 	<script src="../javascripts/NOHTML.js"></script>
+	<script type="text/javascript" src="../javascripts/highlight.js"></script>
+	<link rel="stylesheet" type="text/css" href="../stylesheets/highlight.css" />
 	<script>
 			var _ = NOHTML; //use whatever prefix you'd like
 			var equation = 'Equation: d = .5(Vi + Vf)t';
-			_.start("Physics program"); //name of your program, reset script onclick
+			_.start("Physics program"); //we're going to use the default environment
 			_.print("What would you like to solve for?");
 			_.print("(You must know at least 3 values)");
 			_.select('choice', 'std', function(){
@@ -38,16 +40,20 @@
 				_.printout("Answer: "+_.val('choice')+' = '+answer);
 			});
 			_.end();
+			$(document).ready(function(){
+			    $('pre.code').highlight({source:1, zebra:1, indent:'space', list:'ol'});
+			});
 	</script>
 </head>
 <body>
-	<br /><br />
-	<pre>
+	<h3 class="text-center">With NOHTML (33 lines)</h3>
+	<pre class="code"lang="js">
 		var _ = NOHTML; //use whatever prefix you'd like
 		var equation = 'Equation: d = .5(Vi + Vf)t';
-		_.start("Physics program"); //name of your program, reset script onclick
+		_.start("Physics program"); //this sets up a default environment for you, with wrapper & output
 		_.print("What would you like to solve for?");
-		_.select('choice', function(){
+		_.print("(You must know at least 3 values)");
+		_.select('choice', 'std', function(){
 			_.change('equation1', equation+'; Find: '+_.val('choice'));
 		}, 'Initial velocity', 'Final velocity', 'Displacement', 'Time');
 		_.print(equation, 'equation1');
@@ -73,7 +79,74 @@
 			}
 			_.printout("Answer: "+_.val('choice')+' = '+answer);
 		});
-		_.end();
+		_.end(); //save original state of code to reset on title click
+	</pre>
+	<h3 class="text-center">Equivalent with HTML (64 lines)</h3>
+	<pre class="code"lang="js">
+		&lt;script&gt;
+			var equation = 'Equation: d = .5(Vi + Vf)t';
+			$(document).ready(function(){
+				$(document).on('change', '#choice', function(){
+					$('#equation1').text(equation+'; Find: '+$('#choice').val());
+				})
+				$(document).on('click', '#mybutton', function(){
+					var answer;
+					switch($('#choice').val()){
+						case 'Displacement':
+							answer = .5*($('#vi').val() + $('#vf').val())*$('#t').val();
+							break;
+						case 'Initial velocity':
+							answer = ($('#d').val()/.5)/$('#t').val() - $('#vf').val();
+							break;
+						case 'Final velocity':
+							answer = ($('#d').val()/.5)/$('#t').val() - $('#vi').val();
+							break;
+						case 'Time':
+							answer = $('#d').val()/(.5*($('#vi').val() + $('#vf').val()));
+							break;
+					}
+					$('#NOHTML_output').append("Answer: "+_.val('choice')+' = '+answer);
+				});
+				$(document).on('click', '#NOHTML_title', function(){
+					$('input').val('');
+					$('#NOHTML_output').html('&lt;h1&gt;Output&lt;/h1&gt;');
+				});
+			});
+		&lt;/script&gt;
+	</pre>
+	<pre class="code"lang="html">
+		&lt;div class=&quot;row text-center&quot;&gt;
+			&lt;div id=&quot;NOHTML_wrapper&quot; class=&quot;span8&quot; style=&quot;padding-right:20px; border-right: 1px solid #ccc;&quot;&gt;
+				&lt;h1 id=&quot;NOHTML_title&quot; style=&quot;cursor:pointer;&quot;&gt;Physics program&lt;/h1&gt;
+				&lt;br&gt;
+				&lt;span id=&quot;&quot;&gt;What would you like to solve for?&lt;/span&gt;
+				&lt;br&gt;&lt;br&gt;
+				&lt;span id=&quot;&quot;&gt;(You must know at least 3 values)&lt;/span&gt;
+				&lt;br&gt;&lt;br&gt;
+				&lt;select id=&quot;choice&quot;&gt;
+					&lt;option&gt;Initial velocity&lt;/option&gt;
+					&lt;option&gt;Final velocity&lt;/option&gt;
+					&lt;option&gt;Displacement&lt;/option&gt;
+					&lt;option&gt;Time&lt;/option&gt;
+				&lt;/select&gt;
+				&lt;br&gt;&lt;br&gt;
+				&lt;span id=&quot;equation1&quot;&gt;Equation: d = .5(Vi + Vf)t&lt;/span&gt;
+				&lt;br&gt;&lt;br&gt;
+				&lt;input type=&quot;text&quot; placeholder=&quot;Initial velocity&quot; id=&quot;vi&quot; value=&quot;&quot;&gt;
+				&lt;br&gt;&lt;br&gt;
+				&lt;input type=&quot;text&quot; placeholder=&quot;Final velocity&quot; id=&quot;vf&quot; value=&quot;&quot;&gt;
+				&lt;br&gt;&lt;br&gt;
+				&lt;input type=&quot;text&quot; placeholder=&quot;Displacement&quot; id=&quot;d&quot; value=&quot;&quot;&gt;
+				&lt;br&gt;&lt;br&gt;
+				&lt;input type=&quot;text&quot; placeholder=&quot;Time&quot; id=&quot;t&quot; value=&quot;&quot;&gt;
+				&lt;br&gt;&lt;br&gt;
+				&lt;button id=&quot;mybutton&quot;&gt;Solve&lt;/button&gt;
+				&lt;br&gt;
+			&lt;/div&gt;
+			&lt;div id=&quot;NOHTML_output&quot; class=&quot;span4&quot;&gt;
+				&lt;h1&gt;Output&lt;/h1&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
 	</pre>
 </body>
 </html>

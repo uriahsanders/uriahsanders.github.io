@@ -61,8 +61,9 @@ var NOHTML = NOHTML || (function($){
 		//reset program onclick
 		$(document).ready(function(){
 			$(document).on('click', '#NOHTML_title', function(){ //onclick:
-				var CONTENT = $('body').html();
-				$('body').html(CONTENT);
+				//for now just empty inputs and output
+				$('input').val('');
+				$(Private.output).html('<h1>Output</h1>');
 			});
 		});
 	};
