@@ -5,6 +5,9 @@
 	<meta charset="UTF-8">
 	<title>Test</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../stylesheets/bootstrap.css" />
+	<script type="text/javascript" src="../javascripts/highlight.js"></script>
+	<link rel="stylesheet" type="text/css" href="../stylesheets/highlight.css" />
 	<script src="../javascripts/Graph.js"></script>
 	<script src="../javascripts/NOHTML.js"></script>
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
@@ -113,10 +116,13 @@
 		_.br();
 		_.hr();
 		_.h(2, 'Example code:');
+		$(document).ready(function(){
+			    $('pre.code').highlight({source:1, zebra:1, indent:'space', list:'ol'});
+			});
 	</script>
 	<!-- Not written in NOHTML for "pre" tags -->
 	<h4>
-	<pre>
+	<pre class="code"lang="js">
 	//define options: (Anything you dont specify is defaulted for you!)
 	var options = {
 		x: ['mon', 'tue', 'wed', 'thu', 'fri'], //the x axis
