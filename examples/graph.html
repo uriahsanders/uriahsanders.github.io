@@ -1,0 +1,140 @@
+<!doctype html>
+<!-- Just a page for testing Modules -->
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Test</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="../javascripts/Graph.js"></script>
+	<script src="../javascripts/NOHTML.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+</head>
+<body>
+	<script>
+		var _ = NOHTML;
+		_.h(1, 'SVGGraph.js: Create customized graphs of multiple types easily.');
+		_.h(2, 'Example using the jQuery plugin:');
+		_.create('div', {
+			id: 'grapher',
+			style: 'height:350px;width:800px;'
+		});
+		$('#grapher').graphify({
+			//options: true,
+			start: 'bar',
+			obj: {
+				id: 'ggg',
+				width: 775,
+				height: 375,
+				multiplePoints: true,
+				xGrid: false,
+				legend: true,
+				title: 'My first SVG Graph!',
+				points: [
+					[0, 26, 33, 74, 12, 49, 33],
+					[32, 46, 75, 38, 62, 76, 82],
+					[12, 33, 25, 16, 87, 20, 0]
+				],
+				pointRadius: 3,
+				byCSS: {
+					'#ggg .SVG-tooltip-box': {
+						fill: 'darkgrey',
+						opacity: 0.7,
+						display: 'none'
+					},
+					'#ggg circle': {
+						opacity: 0.7,
+						stroke: '#000',
+						fill: 'lightblue'
+					}
+				},
+				xDist: 90
+			}
+		});
+		_.br(7);
+		_.hr();
+		_.h(2, 'Single dataset example:');
+		_.h(4, '[The above graph had multiple datasets so there was no "pie" button]');
+		_.br();
+		_.create('div', {
+			id: 'piehold',
+			style: 'height:375px;width:800px;'
+		});
+		$('#piehold').graphify({
+			start: 'pie',
+			obj: {
+				id: 'lol',
+				legend: true,
+				pieSize: 200,
+				shadow: true,
+				height: 400,
+				x: [2000, 2001, 2002, 2003, 2004, 2005, 2006],
+				points: [17, 33, 64, 22, 87, 45, 38],
+				xDist: 90,
+				scale: 12,
+				yDist: 35,
+				grid: false,
+				showPoints: false,
+				byCSS: {
+					'#lol .rect': {
+						fill: 'grey',
+						opacity: 0.7,
+						stroke: 'black'
+					},
+					'#lol .SVG-tooltip-box': {
+						fill: 'grey',
+						opacity: 0.7,
+						display: 'none',
+						stroke: 'black'
+					}
+				}
+			}
+		});
+		_.br(7);
+		_.hr();
+		_.h(2, 'Features:');
+		_.print('Can return a graph as JSON using <b>graph.save()</b><br>');
+		_.print('Can expand JSON into a graph with <b>graph.expand(json)</b><br>');
+		_.print('Can update a graph with <b>graph.update(newOptions)</b><br>');
+		_.print('Can change a graph of one type to another like <b>linearGraph.to("bar")</b><br>');
+		_.print('Every single inch of the graph is customizable in the options.<br>');
+		_.print('Can style a graph with <b>syling</b> or <b>byCSS</b> options.');
+		_.br();
+		_.hr();
+		_.h(2, 'Important stuff thats coming soon:');
+		_.print('Addition to the plugin that allows users to modify a graph on the fly. (UI)');
+		_.br(2);
+		_.print('Thats all the biggesh stuff. Smaller changes can be found elsewhere.');
+		_.br();
+		_.hr();
+		_.h(2, 'Requires:');
+		_.print('jQuery <br />');
+		_.print('jQuery UI for pie graph tooltips (Temporary)');
+		_.br();
+		_.hr();
+		_.h(2, 'Example code:');
+	</script>
+	<!-- Not written in NOHTML for "pre" tags -->
+	<h4>
+	<pre>
+	//define options: (Anything you dont specify is defaulted for you!)
+	var options = {
+		x: ['mon', 'tue', 'wed', 'thu', 'fri'], //the x axis
+		points: [12, 164, 1000, 45, 982] //Y values
+	};
+	
+	var linear = new GraphLinear(options); //create object for linear graphs
+	linear.init(); //actually create graph
+
+	//or if you want to use the jquery plugin:
+	$('#main').graphify({obj:options});
+	//plugin also has other options that are defaulted if not specified
+		</pre>
+	</h4>
+	<script>
+		_.hr();
+		_.h(2, 'Written with NOHTML.js. (View source)');
+		_.br();
+	</script>
+</body>
+</html>

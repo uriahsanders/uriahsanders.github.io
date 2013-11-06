@@ -2,18 +2,10 @@
 /*	
 	JS script to allow linear format of programming, similar to the command line in nature
 	so beginners can focus less on html/css, and more on JS
-	omit _.start() and _.end() to use as a general framework (like jQuery!)
+	omit _.start() and _.end() to use as a general framework
 */
 var NOHTML = NOHTML || (function($) {
 	"use strict";
-	Object.size = Object.size || function(obj) {
-		var size = 0,
-			key;
-		for (key in obj) {
-			if (obj.hasOwnProperty(key))++size;
-		}
-		return size;
-	};
 	var Private = {};
 	Private.start = false; //Not using default wrapper
 	Private.wrapper = '#NOHTML_wrapper';
@@ -30,8 +22,8 @@ var NOHTML = NOHTML || (function($) {
 		options = obj.options || '';
 		//split into common html components
 		if (type !== '') type = 'type="' + type + '"';
-		if (classes !== '') classes = 'class="' + classes.join(' ') + '"';
-		if (style !== '') style = 'style="' + style.join(';') + '"';
+		if (classes !== '') classes = 'class="' + classes + '"';
+		if (style !== '') style = 'style="' + style + '"';
 		if (id !== '') id = 'id="' + id + '"';
 		element = '<' + what + ' ' + id + type + classes + style;
 		//do unique tag handling
@@ -44,35 +36,28 @@ var NOHTML = NOHTML || (function($) {
 		return element;
 	};
 	Private.attachTo = function(content, s) {
-		$(document).ready(function() {
-			if (Private.start) content = '<br />' + content + '<br />';
-			if ((s === 'std' && Private.start) || (typeof s === 'undefined' && Private.start)) {
-				$(content).appendTo(Private.wrapper);
-			} else if ((s === 'std' && !Private.start) || (typeof s === 'undefined' && !Private.start)) {
-				$(content).appendTo('body');
-			} else {
-				$(content).appendTo(s);
-			}
-		});
+		if (Private.start) content = '<br />' + content + '<br />';
+		if ((s === 'std' && Private.start) || (typeof s === 'undefined' && Private.start)) {
+			$(content).appendTo(Private.wrapper);
+		} else if ((s === 'std' && !Private.start) || (typeof s === 'undefined' && !Private.start)) {
+			$(content).appendTo('body');
+		} else {
+			$(content).appendTo(s);
+		}
 	};
 	var Public = {};
 	Public.start = function(title) {
 		Private.start = true; //we are using the default wrapper
-		$(document).ready(function() {
-			//add starting HTML
-			$('<div class="row text-center"></div>').prependTo('body');
-			$('<div id="NOHTML_wrapper"class="span8"style="padding-right:20px; border-right: 1px solid #ccc;"><h1 id="NOHTML_title"style="cursor:pointer;">' + title + '</h1></div>').appendTo('.row'); //area for forms
-			$('<div id="NOHTML_output"class="span4"><h1>Output</h1></div>').appendTo('.row'); //area for output
-		});
+		//add starting HTML
+		$('<div class="row text-center"></div>').prependTo('body');
+		$('<div id="NOHTML_wrapper"class="span8"style="padding-right:20px; border-right: 1px solid #ccc;"><h1 id="NOHTML_title"style="cursor:pointer;">' + title + '</h1></div>').appendTo('.row'); //area for forms
+		$('<div id="NOHTML_output"class="span4"><h1>Output</h1></div>').appendTo('.row'); //area for output
 	};
 	Public.end = function() {
-		//reset program onclick
-		$(document).ready(function() {
-			$(document).on('click', '#NOHTML_title', function() { //onclick:
-				//for now just empty inputs and output
-				$('input').val('');
-				$(Private.output).html('<h1>Output</h1>');
-			});
+		$(document).on('click', '#NOHTML_title', function() { //onclick:
+			//for now just empty inputs and output, later i want to restore intial program state
+			$('input').val('');
+			$(Private.output).html('<h1>Output</h1>');
 		});
 	};
 	//create any element with an object
@@ -82,99 +67,66 @@ var NOHTML = NOHTML || (function($) {
 		//expand the object into html
 		Private.attachTo(Private.expand(what, obj), obj.attachTo);
 	};
-	//expand JSON into a table or list
-	Public.expand = function(what, obj, attch) {
-		//these are actually pretty simple, just sticking data into a var and appending
-		if (what === 'list') { //ul or ol
-			var list = '<' + obj.type + ' id="' + obj.id + '"class="list-group">';
-			for (var i = 0; i < obj.items.length; ++i) {
-				//add each item into ul with all the information
-				list += '<li id="' + obj.ids[i] + '"class="list-group-item ' + obj.classes[i] + '">' + obj.items[i] + '</li>';
-			}
-			list += '</ul>';
-			Private.attachTo(list, attch);
-		} else if (what === 'table') {
-			var table = '<table id="' + obj.id + '"class="table"><tr>';
-			//adding headers <th>
-			for (var i = 0; i < obj.headers.length; ++i) {
-				table += '<th>' + obj.headers[i] + '</th>';
-			}
-			table += '</tr>';
-			//for loop for dividing into rows
-			for (var i = 0; i < Object.size(obj.data); ++i) { //get length of assoc array
-				table += '<tr>';
-				//print contents of each row
-				for (var j = 0; j < obj.data['row' + i].length; ++j) {
-					table += '<td>' + obj.data['row' + i][j] + '</td>';
-				}
-				table += '</tr>';
-			}
-			table += '</table>';
-			Private.attachTo(table, attch);
+	//divs
+	Public.div = function(txt, id, attch) {
+		Private.attachTo('<div id="' + id + '">' + txt + '</div>', attch);
+	};
+	//headers
+	Public.h = function(num, txt, id, attch) {
+		Private.attachTo('<h' + num + ' id="' + id + '">' + txt + '</h' + num + '>', attch);
+	};
+	//breaks/hr's
+	Public.br = function(num, attch) {
+		num = num || 1;
+		for (var i = 0; i < num; ++i) {
+			Private.attachTo('<br />', attch);
 		}
 	};
-	//divs
-	Public.div = function(id, txt, attch) {
-		$(document).ready(function() {
-			Private.attachTo('<div id="' + id + '">' + txt + '</div>', attch);
-		});
+	Public.hr = function(num, attch) {
+		num = num || 1;
+		for (var i = 0; i < num; ++i) {
+			Private.attachTo('<hr />', attch);
+		}
 	};
 	//input forms
-	Public.input = function(id, prompt, attch) {
-		$(document).ready(function() {
-			//give a question, add an id, append to wrapper
-			Private.attachTo('<input type="text"placeholder="' + prompt + '"id="' + id + '"value=""/>', attch);
-		});
+	Public.input = function(prompt, id, attch) {
+		//give a question, add an id, append to wrapper
+		Private.attachTo('<input type="text"placeholder="' + prompt + '"id="' + id + '"value=""/>', attch);
 	};
 	//select boxes
-	Public.select = function(id, attch, func) {
+	Public.select = function(attch, id, func) {
 		var select = '<select id="' + id + '">';
 		//all extra arguments are options
 		for (var i = 3; i < arguments.length; ++i) {
 			select += '<option>' + arguments[i] + '</option>';
 		}
 		select += '</select>';
-		$(document).ready(function() {
-			$(document).on('change', '#' + id, function() {
-				func(); //call supplied function onclick
-			});
-			Private.attachTo(select, attch);
+		$(document).on('change', '#' + id, function() {
+			func(); //call supplied function onclick
 		});
+		Private.attachTo(select, attch);
 	};
 	//for now, only changes text in a span
-	Public.change = function(id, txt) {
+	Public.change = function(txt, id) {
 		$('#' + id).text(txt);
 	};
-	//for strings: 'hi #name' (in quotes)
 	Public.printout = function(txt) {
-		$(document).ready(function() {
-			$(Private.output).append('<br />' + txt + '<br />');
-		});
+		$(Private.output).append('<br />' + txt + '<br />');
 	};
 	Public.print = function(txt, id, attch) {
 		id = id || '';
-		$(document).ready(function() {
-			Private.attachTo('<span id="' + id + '">' + txt + '</span>', attch);
-		});
+		Private.attachTo('<span id="' + id + '">' + txt + '</span>', attch);
 	};
 	Public.remove = function(id) {
-		$(document).ready(function() {
-			$('#' + id).fadeOut().remove(); //remove an element
-		});
+		$('#' + id).fadeOut().remove(); //remove an element
 	};
 	Public.disable = function(id) {
-		$(document).ready(function() {
-			$('#' + id).attr('disabled', 'disabled');
-		});
+		$('#' + id).attr('disabled', 'disabled');
 	};
-	//"stuff" parameter does it all, use with _val to output the value of "stuff" onclick
-	Public.button = function(id, txt, func, attch) {
-		$(document).ready(function() {
-			//create a button with text and append to wrapper
-			Private.attachTo('<button id="' + id + '">' + txt + '</button>', attch);
-			$(document).on('click', '#' + id, function() { //onclick:
-				func();
-			});
+	Public.button = function(txt, id, func, attch) {
+		Private.attachTo('<button id="' + id + '">' + txt + '</button>', attch);
+		$(document).on('click', '#' + id, function() { //onclick:
+			func();
 		});
 	};
 	//for numbers

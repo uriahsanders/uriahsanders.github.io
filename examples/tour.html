@@ -5,14 +5,29 @@
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="../stylesheets/bootstrap.css" />
 	<script src="../javascripts/tour.js"></script>
+	<script src="../javascripts/NOHTML.js"></script>
 	<script>
-
+		//structuring
+		var _ = NOHTML;
+		_.create('div', {
+			txt: 'test',
+			id: 'main',
+			style: ['border:5px solid black', 'color:grey']
+		});
+		//tour
+		Tour.createElement({
+			attachTo: '#main',
+	        txt: 'My first tour!',
+	        arrowDir: 'left',
+	        style: 'color:red'
+		});
+		Tour.init({
+			localstorage: false
+		});
 	</script>
 	<style>
 
 	</style>
 </head>
-<body>
-	<!-- enter lots of content to tour around -->
-</body>
+<body></body>
 </html>
