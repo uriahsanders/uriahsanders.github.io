@@ -7,43 +7,6 @@
 	<script src="../javascripts/NOHTML.js"></script>
 	<script type="text/javascript" src="../javascripts/highlight.js"></script>
 	<link rel="stylesheet" type="text/css" href="../stylesheets/highlight.css" />
-	<script>
-			var _ = NOHTML; //use whatever prefix you'd like
-			var equation = 'Equation: d = .5(Vi + Vf)t';
-			_.start("Physics program"); //we're going to use the default environment
-			_.print("What would you like to solve for?");
-			_.print("(You must know at least 3 values)");
-			_.select('choice', 'std', function(){
-				_.change('equation1', equation+'; Find: '+_.val('choice'));
-			}, 'Initial velocity', 'Final velocity', 'Displacement', 'Time');
-			_.print(equation, 'equation1');
-			_.input('vi', 'Initial velocity');
-			_.input('vf', 'Final velocity');
-			_.input('d', 'Displacement');
-			_.input('t', 'Time');
-			_.button('mybutton', 'Solve', function(){
-				var answer;
-				switch(_.val('choice')){
-					case 'Displacement':
-						answer = .5*(_.floatval('vi') + _.floatval('vf'))*_.floatval('t');
-						break;
-					case 'Initial velocity':
-						answer = (_.floatval('d')/.5)/_.floatval('t') - _.floatval('vf');
-						break;
-					case 'Final velocity':
-						answer = (_.floatval('d')/.5)/_.floatval('t') - _.floatval('vi');
-						break;
-					case 'Time':
-						answer = _.floatval('d')/(.5*(_.floatval('vi') + _.floatval('vf')));
-						break;
-				}
-				_.printout("Answer: "+_.val('choice')+' = '+answer);
-			});
-			_.end();
-			$(document).ready(function(){
-			    $('pre.code').highlight({source:1, zebra:1, indent:'space', list:'ol'});
-			});
-	</script>
 </head>
 <body>
 	<h3 class="text-center">With NOHTML (33 lines)</h3>
@@ -148,5 +111,43 @@
 			&lt;/div&gt;
 		&lt;/div&gt;
 	</pre>
+	<script>
+			var _ = NOHTML; //use whatever prefix you'd like
+			var equation = 'Equation: d = .5(Vi + Vf)t';
+			_.start("Physics program"); //we're going to use the default environment
+			_.print("What would you like to solve for?");
+			_.print("(You must know at least 3 values)");
+			_.select('choice', 'std', function(){
+				_.change('equation1', equation+'; Find: '+_.val('choice'));
+			}, 'Initial velocity', 'Final velocity', 'Displacement', 'Time');
+			_.print(equation, 'equation1');
+			_.input('vi', 'Initial velocity');
+			_.input('vf', 'Final velocity');
+			_.input('d', 'Displacement');
+			_.input('t', 'Time');
+			_.button('mybutton', 'Solve', function(){
+				var answer;
+				switch(_.val('choice')){
+					case 'Displacement':
+						answer = .5*(_.floatval('vi') + _.floatval('vf'))*_.floatval('t');
+						break;
+					case 'Initial velocity':
+						answer = (_.floatval('d')/.5)/_.floatval('t') - _.floatval('vf');
+						break;
+					case 'Final velocity':
+						answer = (_.floatval('d')/.5)/_.floatval('t') - _.floatval('vi');
+						break;
+					case 'Time':
+						answer = _.floatval('d')/(.5*(_.floatval('vi') + _.floatval('vf')));
+						break;
+				}
+				_.printout("Answer: "+_.val('choice')+' = '+answer);
+			});
+			_.end();
+			$(document).ready(function(){
+			    $('pre.code').highlight({source:1, zebra:1, indent:'space', list:'ol'});
+			});
+			alert('ddd');
+	</script>
 </body>
 </html>
