@@ -23,7 +23,7 @@
 	<br>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-	<script src="../javascripts/Graph.js"></script>
+	<script src="Graph.js"></script>
 	<script>
 		$(function(){
 			$('#graph').graphify({
@@ -35,9 +35,9 @@
 					height: 375,
 					xGrid: false,
 					legend: true,
-					title: 'Graph.js Example',
+					title: 'Linux vs Mac',
 					points: [
-						[0, 26, 33, 74, 12, 49, 33],
+						[7, 26, 33, 74, 12, 49, 33],
 						[32, 46, 75, 38, 62, 20, 52]
 					],
 					pointRadius: 3,
@@ -62,6 +62,7 @@
 				obj: {
 					id: 'lol',
 					legend: false,
+					showPoints: false,
 					width: 775,
 					legendX: 450,
 					pieSize: 200,
@@ -76,11 +77,10 @@
 					xName: 'Year',
 					dataNames: ['Amount'],
 					design: {
-						lineColor: 'green',
-						pointColor: 'green',
+						lineColor: 'red',
 						tooltipFontSize: '20px',
-						barColor: 'green',
-						areaColor: 'green'
+						barColor: 'blue',
+						areaColor: 'orange'
 					}
 				}
 			});
