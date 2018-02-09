@@ -7,10 +7,9 @@
 <body>
 	<h1>Graph.js : <a target="_blank"href="https://github.com/uriahsanders/Graph.js">Github</a> | <a href="#docs">Docs</a></h1>
 	<h2>"Lightweight, customizable, SVG graphs + jQuery plugin"</h2>
-	<h3>Compare to <a target="_blank"href="https://developers.google.com/chart/">Google charts</a>, <a target="_blank"href="http://www.oesmith.co.uk/morris.js/">Morris.js</a>, <a target="_blank"href="http://www.chartjs.org/">Charts.js</a>...</h3>
 	<hr>
 	<h1>Here are some examples:</h1>
-	<h2>Multiple Data-Sets (Yes, animations/interactivity is optional. Actually, so is everything else.)</h2>
+	<h2>Multiple Data-Sets (Animations/interactivity is optional)</h2>
 	<div id="graph"></div>
 	<br>
 	<br>
@@ -26,7 +25,7 @@
 	<br>
 	<br>
 	<hr>
-	<h1 id="docs">Documentation (someone needs to make this page look pretty but it's not me...):</h1>
+	<h1 id="docs">Documentation:</h1>
 	<div>
 		<h2>Method 1: Using Class -</h2>
 		<code>
@@ -69,10 +68,9 @@
 		barGraph.to('linear'); //changing the type of a graph
 		<h2>Getting all graph information:</h2>
 		graph.getData();
-		<h2>An update function exists but will change dramatically in like a day so skipping that.</h2>
 		<h2>Graph Options (Note: Anything not specified is defaulted; Some options will be migrated to the design object soon)</h2>
 		<ul style="list-style-type:none">
-			<li><b>id</b>: Give an Id to your graph (SVG tag)</li>
+			<li><b>id</b>: Give an ID to your graph (SVG tag)</li>
 			<li><b>width, height</b>: Set width and height of the graph.</li>
 			<li><b>grid</b>: (true/false) Show the grid?</li>
 			<li><b>xGrid</b>: (true/false) False will remove vertical grid lines</li>
@@ -89,16 +87,16 @@
 			<li><b>animations</b>: (true/false) Enable animations?</li>
 			<li><b>interactive</b>: (true/false) Enable interactivity?</li>
 			<li><b>pieSize</b>: (number) Size of pie/donut graphs (radius to be exact)</li>
-			<li><b>shadow</b>: (true/false) Wanna stick a shadow under your pie graph?</li>
+			<li><b>shadow</b>: (true/false) Want a shadow under your pie graph?</li>
 			<li><b>scale</b>: (number) Graphs start at 0, but will jump up by the scale. Eg: 0, 10, 20, 30 ...</li>
 			<li><b>x</b>: (array) Array of your x - Axis names.</li>
 			<li><b>showPoints</b>: (true/false) Want the line graphs to have points on them?</li>
 			<li><b>special</b>: (donut/area/combo) donuts are a subset of pie, area of linear, combo of bar. So to use one use its parent and appropriately set special.</li>
-			<li><b>attachTo</b>: (id) Where do you want dat graph to show up?</li>
+			<li><b>attachTo</b>: (id) Where do you want the graph to show up?</li>
 			<li><b>animationDuration</b>: (seconds) Time of each animation</li>
-			<li><b>point, bar, and lineAnimation</b>: (true/false) Want em'?</li>
+			<li><b>point, bar, and lineAnimation</b>: (true/false)</li>
 			<li><b>byCSS</b>: (object) use a css object with your id as a selector to design your graph with CSS</li>
-			<li><b>Design</b>: This object contains all the various styling options, below (well, most are below, sorry :P):</li>
+			<li><b>Design</b>: This object contains all the various styling options, below:</li>
 			<li><b>tooltipColor</b></li>
 			<li><b>averageLineColor</b></li>
 			<li><b>pointColor</b></li>
